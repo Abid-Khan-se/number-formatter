@@ -7,6 +7,7 @@ export default function Home() {
   const [phoneNumber, setPhoneNumber] = useState("+15852826396"); // Initial default number
   const [formattedNumbers, setFormattedNumbers] = useState({});
   const [selectedFormatIndex, setSelectedFormatIndex] = useState(0); // To track which format is selected
+  const [highlightedIndex, setHighlightedIndex] = useState(null); // To track the highlighted index
   const [copyMessage, setCopyMessage] = useState(""); // Message for copy confirmation
 
   // Formats phone number into multiple formats
@@ -41,13 +42,17 @@ export default function Home() {
   // Handle key press for up/down arrow navigation and copy action
   const handleKeyDown = (event) => {
     if (event.key === "ArrowDown") {
-      // Move down the list
+      // Move down the list and highlight the next format
       setSelectedFormatIndex((prev) =>
         Math.min(prev + 1, Object.keys(formattedNumbers).length - 1)
       );
+      setHighlightedIndex((prev) =>
+        Math.min(prev + 1, Object.keys(formattedNumbers).length - 1)
+      ); // Highlight the next format
     } else if (event.key === "ArrowUp") {
-      // Move up the list
+      // Move up the list and highlight the previous format
       setSelectedFormatIndex((prev) => Math.max(prev - 1, 0));
+      setHighlightedIndex((prev) => Math.max(prev - 1, 0)); // Highlight the previous format
     } else if (event.key === "c" && (event.ctrlKey || event.metaKey)) {
       // Copy selected format if Ctrl+C or Cmd+C is pressed
       const selectedFormat =
@@ -55,10 +60,8 @@ export default function Home() {
       if (selectedFormat) {
         navigator.clipboard.writeText(selectedFormat).then(() => {
           setCopyMessage("Number has copied!");
-
-          // Clear the message after 1 second
           setTimeout(() => {
-            setCopyMessage("");
+            setCopyMessage(""); // Clear the message after 1 second
           }, 1000);
         });
       }
@@ -73,9 +76,25 @@ export default function Home() {
     };
   }, [formattedNumbers, selectedFormatIndex]);
 
+  // Handle mouse click for copying and highlight the clicked format
+  const handleClick = (formatted, index) => {
+    navigator.clipboard.writeText(formatted).then(() => {
+      setCopyMessage("Number has copied!");
+      // Highlight the clicked number and unhighlight the previously selected one
+      setHighlightedIndex(index);
+      setTimeout(() => {
+        setCopyMessage(""); // Clear the message after 1 second
+      }, 1000);
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center p-6">
-      <div className="w-[40%] bg-white p-6 rounded-md shadow-lg">
+    <div
+      className="min-h-screen bg-gray-50 flex flex-col items-center p-6"
+      style={{ paddingLeft: "25%", paddingRight: "25%" }}
+    >
+      {/* Your content goes here */}
+      <div className="bg-white p-6 sm:p-5 md:p-4 lg:p-3 xl:p-2 rounded-md shadow-lg">
         <h1 className="text-4xl font-bold text-center text-blue-600 mb-6">
           USA Number Formatter
         </h1>
@@ -103,21 +122,14 @@ export default function Home() {
             <div
               key={key}
               className={`p-4 rounded-md border cursor-pointer transition-all ${
-                selectedFormatIndex === index
-                  ? "bg-blue-100 border-blue-500"
+                highlightedIndex === index // Highlight the clicked or selected format
+                  ? "bg-blue-100 border-blue-500" // Highlight clicked format
                   : "bg-white border-gray-300"
               }`}
-              onClick={() => {
-                navigator.clipboard.writeText(formatted).then(() => {
-                  setCopyMessage("Number has copied!");
-                  setTimeout(() => {
-                    setCopyMessage(""); // Clear the message after 1 second
-                  }, 1000);
-                });
-              }}
+              onClick={() => handleClick(formatted, index)} // Handle mouse click to copy and highlight
               style={{
                 outline:
-                  selectedFormatIndex === index ? "2px solid #007BFF" : "none",
+                  highlightedIndex === index ? "2px solid #007BFF" : "none",
               }}
             >
               <span className="text-gray-600 ml-2">{formatted}</span>
