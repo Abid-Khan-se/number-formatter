@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 export default function Home() {
-  const [phoneNumber, setPhoneNumber] = useState("+15852826396"); // Initial default number
+  const [phoneNumber, setPhoneNumber] = useState(""); // Initial default number
   const [formattedNumbers, setFormattedNumbers] = useState({});
   const [selectedFormatIndex, setSelectedFormatIndex] = useState(0); // To track which format is selected
   const [highlightedIndex, setHighlightedIndex] = useState(null); // To track the highlighted index
@@ -94,13 +94,13 @@ export default function Home() {
       style={{ paddingLeft: "25%", paddingRight: "25%" }}
     >
       {/* Your content goes here */}
-      <div className="bg-white p-6 sm:p-5 md:p-4 lg:p-3 xl:p-2 rounded-md shadow-lg">
-        <h1 className="text-4xl font-bold text-center text-blue-600 mb-6">
+      <div className="bg-white pt-[30px] pb-[30px] pl-6 pr-6 sm:pt-[30px] sm:pb-[30px] md:pt-[30px] md:pb-[30px] lg:pt-[30px] lg:pb-[30px] xl:pt-[30px] xl:pb-[30px] rounded-[20px] shadow-lg">
+        <h1 className="text-4xl font-bold text-center text-blue-600 mb-6 pl-[30px] pr-[30px]">
           USA Number Formatter
         </h1>
 
         {/* Input field for the user to enter a phone number */}
-        <div className="mb-6">
+        <div className="mb-6 pl-[30px] pr-[30px]">
           <label className="block text-lg font-medium text-gray-700 mb-2">
             Enter Phone Number:
           </label>
@@ -114,7 +114,7 @@ export default function Home() {
         </div>
 
         {/* Display formatted numbers */}
-        <div className="space-y-4 w-full">
+        <div className="space-y-4 w-full pl-[30px] pr-[30px]">
           <p className="text-lg font-semibold text-gray-700">
             Formatted Numbers:
           </p>
