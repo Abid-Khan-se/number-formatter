@@ -37,6 +37,12 @@ export default function Home() {
     setPhoneNumber(inputNumber);
     const formatted = formatAllWays(inputNumber);
     setFormattedNumbers(formatted);
+
+    // Automatically select and highlight the first format when new number is entered
+    if (Object.keys(formatted).length > 0) {
+      setSelectedFormatIndex(0);
+      setHighlightedIndex(0);
+    }
   };
 
   // Handle key press for up/down arrow navigation and copy action
@@ -115,7 +121,7 @@ export default function Home() {
 
         {/* Display formatted numbers */}
         <div className="space-y-4 w-full pl-[30px] pr-[30px]">
-          <p className="text-lg font-semibold text-gray-700">
+          <p className="text-lg font-semibold text-gray-700 mt-1 mb-1">
             Formatted Numbers:
           </p>
           {Object.entries(formattedNumbers).map(([key, formatted], index) => (
