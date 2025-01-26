@@ -100,8 +100,8 @@ export default function Home() {
       style={{ paddingLeft: "25%", paddingRight: "25%" }}
     >
       {/* Your content goes here */}
-      <div className="bg-white pt-[30px] pb-[30px] pl-6 pr-6 sm:pt-[30px] sm:pb-[30px] md:pt-[30px] md:pb-[30px] lg:pt-[30px] lg:pb-[30px] xl:pt-[30px] xl:pb-[30px] rounded-[20px] shadow-lg">
-        <h1 className="text-4xl font-bold text-center text-blue-600 mb-6 pl-[30px] pr-[30px]">
+      <div className="bg-white pt-[5px] pb-[5px] pl-6 pr-6 sm:pt-[5px] sm:pb-[8px] md:pt-[5px] md:pb-[8px] lg:pt-[5px] lg:pb-[8px] xl:pt-[10px] xl:pb-[20px] rounded-[20px] shadow-lg">
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6 pl-[30px] pr-[30px]">
           USA Number Formatter
         </h1>
 
